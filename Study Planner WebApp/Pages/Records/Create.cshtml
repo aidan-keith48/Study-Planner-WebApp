@@ -1,8 +1,11 @@
 ﻿@page
+@using Study_Planner_WebApp.Migrations;
+@using Study_Planner_WebApp.Model;
 @model Study_Planner_WebApp.Pages.Records.CreateModel
 
 @{
     ViewData["Title"] = "Create";
+    var loggedInUser = ViewData["LoggedInStudent"] as RegisterUser;
 }
 
 <h1>Create</h1>

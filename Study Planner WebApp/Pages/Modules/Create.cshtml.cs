@@ -12,16 +12,9 @@ namespace Study_Planner_WebApp.Pages.Modules
 {
     public class CreateModel : PageModel
     {
-        //private readonly Study_Planner_WebApp.Data.Study_Planner_WebAppContext _context;
-
-        //public CreateModel(Study_Planner_WebApp.Data.Study_Planner_WebAppContext context)
-        //{
-        //    _context = context;
-        //}
-
-        private readonly Study_Planner_WebApp.Data.Study_Planner_WebAppContext _context;
+        private readonly Study_Planner_WebAppContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public CreateModel(Study_Planner_WebApp.Data.Study_Planner_WebAppContext context, IHttpContextAccessor httpContextAccessor)
+        public CreateModel(Study_Planner_WebAppContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;

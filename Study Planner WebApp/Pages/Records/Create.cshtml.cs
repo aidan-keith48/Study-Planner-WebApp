@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Study_Planner_WebApp.Data;
 using Study_Planner_WebApp.Model;
 
 namespace Study_Planner_WebApp.Pages.Records
 {
     public class CreateModel : PageModel
     {
-        private readonly Study_Planner_WebApp.Data.Study_Planner_WebAppContext _context;
-
-        public CreateModel(Study_Planner_WebApp.Data.Study_Planner_WebAppContext context)
+        private readonly Data.Study_Planner_WebAppContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CreateModel(Data.Study_Planner_WebAppContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult OnGet()
@@ -36,6 +31,11 @@ namespace Study_Planner_WebApp.Pages.Records
                 return Page();
             }
 
+            RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
+
+            ViewData["LoggedInStudent"] = loggedInStudent;
+
+            RecordData.studentId = loggedInStudent.Id;
             _context.RecordData.Add(RecordData);
             await _context.SaveChangesAsync();
 

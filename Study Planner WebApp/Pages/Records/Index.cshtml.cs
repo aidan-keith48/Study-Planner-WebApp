@@ -12,21 +12,27 @@ namespace Study_Planner_WebApp.Pages.Records
 {
     public class IndexModel : PageModel
     {
-        private readonly Study_Planner_WebApp.Data.Study_Planner_WebAppContext _context;
-
-        public IndexModel(Study_Planner_WebApp.Data.Study_Planner_WebAppContext context)
+        private readonly Study_Planner_WebAppContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public IndexModel(Study_Planner_WebAppContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IList<RecordData> RecordData { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
+
             if (_context.RecordData != null)
             {
                 RecordData = await _context.RecordData.ToListAsync();
+                ViewData["LoggedInStudent"] = loggedInStudent;
             }
+            return Page();
+            
         }
     }
 }

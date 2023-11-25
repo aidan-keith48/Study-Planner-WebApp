@@ -1,8 +1,11 @@
 ﻿@page
+@using Study_Planner_WebApp.Migrations;
+@using Study_Planner_WebApp.Model;
 @model Study_Planner_WebApp.Pages.Records.IndexModel
 
 @{
     ViewData["Title"] = "Index";
+    var loggedInUser = ViewData["LoggedInStudent"] as RegisterUser;
 }
 
 <h1>Index</h1>
@@ -29,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.RecordData) {
+@foreach (var item in Model.RecordData.Where(m => m.studentId == loggedInUser.Id)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.studentId)

@@ -1,0 +1,70 @@
+﻿@page
+@model Study_Planner_WebApp.Pages.Modules.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Module</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Module.Id" />
+            <div class="form-group">
+                <label asp-for="Module.userID" class="control-label"></label>
+                <input asp-for="Module.userID" class="form-control" />
+                <span asp-validation-for="Module.userID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.ModuleCode" class="control-label"></label>
+                <input asp-for="Module.ModuleCode" class="form-control" />
+                <span asp-validation-for="Module.ModuleCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.ModuleName" class="control-label"></label>
+                <input asp-for="Module.ModuleName" class="form-control" />
+                <span asp-validation-for="Module.ModuleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.Credits" class="control-label"></label>
+                <input asp-for="Module.Credits" class="form-control" />
+                <span asp-validation-for="Module.Credits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.ClassHours" class="control-label"></label>
+                <input asp-for="Module.ClassHours" class="form-control" />
+                <span asp-validation-for="Module.ClassHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.SemesterWeeks" class="control-label"></label>
+                <input asp-for="Module.SemesterWeeks" class="form-control" />
+                <span asp-validation-for="Module.SemesterWeeks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.StartDate" class="control-label"></label>
+                <input asp-for="Module.StartDate" class="form-control" />
+                <span asp-validation-for="Module.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Module.StudyHours" class="control-label"></label>
+                <input asp-for="Module.StudyHours" class="form-control" />
+                <span asp-validation-for="Module.StudyHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

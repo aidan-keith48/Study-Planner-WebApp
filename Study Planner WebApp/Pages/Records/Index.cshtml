@@ -1,0 +1,54 @@
+﻿@page
+@model Study_Planner_WebApp.Pages.Records.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordData[0].studentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordData[0].mCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordData[0].hoursRecorded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecordData[0].studyDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RecordData) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.studentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hoursRecorded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.studyDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

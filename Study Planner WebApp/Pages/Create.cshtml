@@ -1,0 +1,43 @@
+﻿@page
+@model CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null; // Exclude shared layout
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/LoginStyle.css" />
+</head>
+
+<form method="post">
+    <h1>Create</h1>
+
+    <h4>RegisterUser</h4>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="RegisterUser.username" class="control-label"></label>
+        <input asp-for="RegisterUser.username" class="form-control" />
+        <span asp-validation-for="RegisterUser.username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RegisterUser.password" class="control-label"></label>
+        <input asp-for="RegisterUser.password" class="form-control" />
+        <span asp-validation-for="RegisterUser.password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-success" onclick="location.href='@Url.Page("LoginPage")'">Back</button>
+    </div>
+
+</form>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

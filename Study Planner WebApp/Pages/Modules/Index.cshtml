@@ -1,0 +1,85 @@
+﻿
+
+@page
+@using Study_Planner_WebApp.Migrations;
+@using Study_Planner_WebApp.Model;
+@model Study_Planner_WebApp.Pages.Modules.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    //What do i put here to get the logged in user?
+    var loggedInUser = ViewData["LoggedInStudent"] as RegisterUser;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].userID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].ModuleCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].ModuleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].ClassHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].SemesterWeeks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Module[0].StudyHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Module.Where(m => m.userID == loggedInUser.Id))
+        {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SemesterWeeks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyHours)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

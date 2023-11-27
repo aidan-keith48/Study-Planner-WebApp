@@ -18,4 +18,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="studyPlanner_dll">
+      <HintPath>bin\Debug\studyPlanner_dll.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

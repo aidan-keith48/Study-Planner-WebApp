@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Study_Planner_WebApp.Data;
 
@@ -11,9 +12,11 @@ using Study_Planner_WebApp.Data;
 namespace Study_Planner_WebApp.Migrations
 {
     [DbContext(typeof(Study_Planner_WebAppContext))]
-    partial class Study_Planner_WebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20231127085836_WeekInfo")]
+    partial class WeekInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

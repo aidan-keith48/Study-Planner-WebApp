@@ -1,0 +1,54 @@
+﻿@page
+@model Study_Planner_WebApp.Pages.Display.WeekInformationPageModel
+
+@{
+    ViewData["Title"] = "WeekInformationPage";
+}
+
+<h1>WeekInformationPage</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Information[0].userID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Information[0].moduleCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Information[0].weeks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Information[0].hours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Week_Information) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.moduleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.weeks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hours)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

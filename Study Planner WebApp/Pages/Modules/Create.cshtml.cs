@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Study_Planner_WebApp.Data;
+using Study_Planner_WebApp.DbController;
+using Study_Planner_WebApp.HelperFunction;
 using Study_Planner_WebApp.Model;
 
 namespace Study_Planner_WebApp.Pages.Modules
@@ -14,20 +16,34 @@ namespace Study_Planner_WebApp.Pages.Modules
     {
         private readonly Study_Planner_WebAppContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
+        dbController controller = new dbController();
+        helperFunction helper = new helperFunction();
+
+
+        public Dictionary<int, double> weekInfo = new Dictionary<int, double>();
+
         public CreateModel(Study_Planner_WebAppContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+
+       
 
         [BindProperty]
         public Module Module { get; set; } = default!;
-        
+
+        public IActionResult OnGet()
+        {
+            //Module studentModule = _httpContextAccessor.HttpContext.Session.GetObject<Module>("LoggedInStudent");
+            //RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
+
+
+            //weekInfo = controller.LoadDataIntoWeekInfo(loggedInStudent.Id, studentModule.ModuleCode);
+            return Page();
+        }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -39,17 +55,26 @@ namespace Study_Planner_WebApp.Pages.Modules
 
             RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
 
-            ViewData["LoggedInStudent"] = loggedInStudent;
+            if(loggedInStudent == null)
+            {
+                return Page();
+            }
+            else
+            {
+                ViewData["LoggedInStudent"] = loggedInStudent;
 
 
-            Module.userID = loggedInStudent.Id;
-            Module.StudyHours = calcStudyHours(Module.Credits, Module.SemesterWeeks, Module.ClassHours);
+                Module.userID = loggedInStudent.Id;
+                Module.StudyHours = calcStudyHours(Module.Credits, Module.SemesterWeeks, Module.ClassHours);
 
-            _context.Module.Add(Module);
+                _context.Module.Add(Module);
+                controller.InsertWeekInformation(Module.userID, Module.ModuleCode, Module.SemesterWeeks, Module.StudyHours);               
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+                return RedirectToPage("./Index");
+            }
+           
         }
 
         public double calcStudyHours(int credit, int numWeeks, double hoursePerWeek)

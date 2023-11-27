@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Study_Planner_WebApp.Model;
 
 namespace Study_Planner_WebApp.Pages.Records
@@ -40,6 +41,16 @@ namespace Study_Planner_WebApp.Pages.Records
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        public List<Module> GetUserModules()
+        {
+            RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
+
+            // Get the modules for the logged-in user
+            var userModules = _context.Module.Where(m => m.userID == loggedInStudent.Id).ToList();
+
+            return userModules;
         }
     }
 }

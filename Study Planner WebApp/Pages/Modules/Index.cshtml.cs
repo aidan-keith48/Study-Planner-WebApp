@@ -28,7 +28,10 @@ namespace Study_Planner_WebApp.Pages.Modules
                 Module = await _context.Module.ToListAsync();
                 ViewData["LoggedInStudent"] = loggedInStudent;
             }
+           
             return Page();
         }
+
+        //
     }
 }

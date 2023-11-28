@@ -18,6 +18,8 @@ namespace Study_Planner_WebApp.Pages
 
         [BindProperty]
         public RegisterUser user { get; set; }
+
+        public Module userModules { get; set; }
         public void OnGet()
         {
         }

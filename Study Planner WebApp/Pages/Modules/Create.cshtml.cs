@@ -37,8 +37,8 @@ namespace Study_Planner_WebApp.Pages.Modules
 
         public IActionResult OnGet()
         {
-            //Module studentModule = _httpContextAccessor.HttpContext.Session.GetObject<Module>("LoggedInStudent");
             //RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
+            //Module studentModule = _httpContextAccessor.HttpContext.Session.GetObject<Module>("LoggedInStudent");
 
 
             //weekInfo = controller.LoadDataIntoWeekInfo(loggedInStudent.Id, studentModule.ModuleCode);
@@ -48,14 +48,15 @@ namespace Study_Planner_WebApp.Pages.Modules
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Module == null || Module == null)
+            if (!ModelState.IsValid || _context.Module == null || Module == null)
             {
                 return Page();
             }
 
+            // Get the logged-in student
             RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
 
-            if(loggedInStudent == null)
+            if (loggedInStudent == null)
             {
                 return Page();
             }
@@ -63,19 +64,34 @@ namespace Study_Planner_WebApp.Pages.Modules
             {
                 ViewData["LoggedInStudent"] = loggedInStudent;
 
-
                 Module.userID = loggedInStudent.Id;
                 Module.StudyHours = calcStudyHours(Module.Credits, Module.SemesterWeeks, Module.ClassHours);
 
                 _context.Module.Add(Module);
-                controller.InsertWeekInformation(Module.userID, Module.ModuleCode, Module.SemesterWeeks, Module.StudyHours);               
+                controller.InsertWeekInformation(Module.userID, Module.ModuleCode, Module.SemesterWeeks, Module.StudyHours);
+
+                //Module moduleToStore = new Module
+                //{     
+                //    Id = Module.Id,
+                //    ModuleCode = Module.ModuleCode,
+                //    ModuleName = Module.ModuleName,
+                //    Credits = Module.Credits,
+                //    SemesterWeeks = Module.SemesterWeeks,
+                //    StartDate = Module.StartDate,
+                //    ClassHours = Module.ClassHours,
+                //    StudyHours = Module.StudyHours,
+                //    userID = loggedInStudent.Id                    
+                //};
+
+                //// Store the module in the session
+                //HttpContext.Session.SetObject("CurrentModule", moduleToStore);
 
                 await _context.SaveChangesAsync();
 
                 return RedirectToPage("./Index");
             }
-           
         }
+
 
         public double calcStudyHours(int credit, int numWeeks, double hoursePerWeek)
         {

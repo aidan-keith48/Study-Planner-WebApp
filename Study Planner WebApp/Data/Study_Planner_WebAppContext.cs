@@ -22,6 +22,8 @@ namespace Study_Planner_WebApp.Data
 
         public DbSet<Study_Planner_WebApp.Model.Week_Information>? Week_Information { get; set; }
 
+        public DbSet<Study_Planner_WebApp.Model.Week_Tracking>? Week_Tracking { get; set; }
+
         
 
 

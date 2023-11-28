@@ -1,0 +1,58 @@
+﻿@page
+@using Study_Planner_WebApp.Migrations;
+@using Study_Planner_WebApp.Model;
+@model Study_Planner_WebApp.Pages.Display.WeekTrackerPageModel
+
+@{
+    ViewData["Title"] = "WeekTrackerPage";
+    var loggedInUser = ViewData["LoggedInStudent"] as RegisterUser;
+}
+
+<h1>WeekTrackerPage</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Tracking[0].userID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Tracking[0].moduleCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Tracking[0].weeks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Week_Tracking[0].hours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Week_Tracking.Where(m => m.userID == loggedInUser.Id))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.moduleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.weeks)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hours)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

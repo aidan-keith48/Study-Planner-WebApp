@@ -1,8 +1,11 @@
 ﻿@page
+@using Study_Planner_WebApp.Migrations;
+@using Study_Planner_WebApp.Model;
 @model Study_Planner_WebApp.Pages.Display.WeekInformationPageModel
 
 @{
     ViewData["Title"] = "WeekInformationPage";
+    var loggedInUser = ViewData["LoggedInStudent"] as RegisterUser;
 }
 
 <h1>WeekInformationPage</h1>
@@ -29,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Week_Information) {
+@foreach (var item in Model.Week_Information.Where(m => m.userID == loggedInUser.Id)) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.userID)

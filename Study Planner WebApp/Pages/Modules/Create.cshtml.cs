@@ -30,18 +30,11 @@ namespace Study_Planner_WebApp.Pages.Modules
         }
 
 
-       
-
         [BindProperty]
         public Module Module { get; set; } = default!;
 
         public IActionResult OnGet()
         {
-            //RegisterUser loggedInStudent = _httpContextAccessor.HttpContext.Session.GetObject<RegisterUser>("LoggedInStudent");
-            //Module studentModule = _httpContextAccessor.HttpContext.Session.GetObject<Module>("LoggedInStudent");
-
-
-            //weekInfo = controller.LoadDataIntoWeekInfo(loggedInStudent.Id, studentModule.ModuleCode);
             return Page();
         }
 
@@ -69,22 +62,6 @@ namespace Study_Planner_WebApp.Pages.Modules
 
                 _context.Module.Add(Module);
                 controller.InsertWeekInformation(Module.userID, Module.ModuleCode, Module.SemesterWeeks, Module.StudyHours);
-
-                //Module moduleToStore = new Module
-                //{     
-                //    Id = Module.Id,
-                //    ModuleCode = Module.ModuleCode,
-                //    ModuleName = Module.ModuleName,
-                //    Credits = Module.Credits,
-                //    SemesterWeeks = Module.SemesterWeeks,
-                //    StartDate = Module.StartDate,
-                //    ClassHours = Module.ClassHours,
-                //    StudyHours = Module.StudyHours,
-                //    userID = loggedInStudent.Id                    
-                //};
-
-                //// Store the module in the session
-                //HttpContext.Session.SetObject("CurrentModule", moduleToStore);
 
                 await _context.SaveChangesAsync();
 

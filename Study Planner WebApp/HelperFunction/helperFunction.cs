@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Study_Planner_WebApp.DbController;
-using Study_Planner_WebApp.Model;
-using studyPlanner_dll;
+﻿using Study_Planner_WebApp.DbController;
 
 namespace Study_Planner_WebApp.HelperFunction
 {
@@ -13,9 +10,7 @@ namespace Study_Planner_WebApp.HelperFunction
 
         dbController controller = new dbController();
 
-
-
-        public void addWeeks(string search, int userID, Dictionary<int, double> weekInfo, Dictionary<int, double> testInfo)
+        public void addWeeks(string search, int userID)
         {
             // Load week-related information for the specified search using the controller.
             weekInfo = controller.LoadDataIntoWeekInfo(userID, search);
@@ -60,16 +55,16 @@ namespace Study_Planner_WebApp.HelperFunction
                     }
                 }
 
-                // Update the week information in the database using the controller.
-                //foreach (KeyValuePair<int, double> item in weekInfo)
-                //{
-                //    if (item.Key == val)
-                //    {
-                //        controller.AddWeekTracker(userList, search, item.Key, item.Value);
-                //        controller.UpdateHours(userList, search, item.Key, item.Value);
-                //        break;
-                //    }
-                //}
+               // Update the week information in the database using the controller.
+                foreach (KeyValuePair<int, double> item in weekInfo)
+                {
+                    if (item.Key == val)
+                    {
+                        //controller.AddWeekInfomation(userID, search, item.Key, item.Value);
+                        controller.UpdateHours(userID, search, item.Key, item.Value);
+                        break;
+                    }
+                }
                 break;
             }
         }

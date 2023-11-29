@@ -149,7 +149,7 @@ namespace Study_Planner_WebApp.DbController
             Dictionary<int, double> weekInfo = new Dictionary<int, double>();
 
             int usernameID = userID;
-            module = "test user: admin";
+            module = "moduleStore";
 
             try
             {
@@ -186,9 +186,56 @@ namespace Study_Planner_WebApp.DbController
 
             return weekInfo;
         }
-    
 
-    
+        public void UpdateHours(int userID, string module, int week, double hours)
+        {
+            try
+            {
+                newConn.Open();
+
+                string query = "UPDATE Week_Information SET hours = @Hours WHERE userID = @Username AND moduleCode = @ModuleCode AND weeks = @Weeks";
+
+                using (SqlCommand cmd = new SqlCommand(query, newConn))
+                {
+                    cmd.Parameters.AddWithValue("@Username", userID);
+                    cmd.Parameters.AddWithValue("@ModuleCode", module);
+                    cmd.Parameters.AddWithValue("@Weeks", week);
+                    cmd.Parameters.AddWithValue("@Hours", hours);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Error: " + ex.Message);
+                // Handle the exception (e.g., log it, show an error message)
+            }
+            newConn.Close();
+        }
+
+
+        public void AddWeekInfomation(int userID, string moduleCode, int week, double hours)
+        {
+           
+            newConn.Open();
+
+            string query = "INSERT INTO Week_Information (userID, moduleCode, weeks, hours) VALUES (@Username, @ModuleCode, @Week, @Hours)";
+
+            using (SqlCommand cmd = new SqlCommand(query, newConn))
+            {
+                cmd.Parameters.AddWithValue("@Username", userID);
+                cmd.Parameters.AddWithValue("@ModuleCode", moduleCode);
+                cmd.Parameters.AddWithValue("@Week", week);
+                cmd.Parameters.AddWithValue("@Hours", hours);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            newConn.Close();
+        }
+
+
+
     }
 }
 

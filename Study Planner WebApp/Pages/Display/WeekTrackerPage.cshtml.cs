@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Study_Planner_WebApp.Data;
 using Study_Planner_WebApp.DbController;
@@ -41,7 +36,7 @@ namespace Study_Planner_WebApp.Pages.Display
             if (_context.Week_Tracking != null)
             {
                 Week_Tracking = await _context.Week_Tracking.ToListAsync();
-                helper.addWeeks("test user: admin", loggedInStudent.Id, weekInfo,testInfo);
+                helper.addWeeks("moduleStore", loggedInStudent.Id);
                 ViewData["LoggedInStudent"] = loggedInStudent;
             }
         }

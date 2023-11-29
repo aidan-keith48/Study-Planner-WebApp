@@ -16,15 +16,23 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           @*  <div class="form-group">
+                <label asp-for="RecordData.mCode" class="control-label"></label>
+                <input asp-for="RecordData.mCode" class="form-control" />
+                <span asp-validation-for="RecordData.mCode" class="text-danger"></span>
+            </div> *@
 
             <div class="form-group">
-                <select style="width: 300px;">
+                <select asp-for="RecordData.mCode" class="form-control">
+                    <option value="">Select a module</option>
                     @foreach (var item in Model.GetUserModules())
                     {
                         <option value="@item.ModuleCode">@item.ModuleCode</option>
                     }
                 </select>
+                <span asp-validation-for="RecordData.mCode" class="text-danger"></span>
             </div>
+
 
 
             <div class="form-group">
